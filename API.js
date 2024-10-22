@@ -1,18 +1,33 @@
 import express from "express"
 import { createClient } from "@libsql/client";
-import mysql from 'mysql2/promise';
+import dotenv from 'dotenv';
 
-require('dotenv').config
+dotenv.config();
 
-const url = process.env.Url;
-const token = process.env.Token;
+const URL = process.env.URL;
+const TOKEN = process.env.TOKEN;
 
 
 const app = express();
 const port = parseInt(process.env.PORT) || 3000
 
-app.use(express.json());
+const turso = createClient({
+    url: URL,
+    authToken: TOKEN,
+});
 
-const connection = await mysql.createConnection({
+app.get('/', async(req, res) => {
+    try {
+        const getdata = await turso.execute('SELECT * FROM Users');
+        console.log(getdata);
+        res.json({ data: getdata });
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
     
-})
+});
+
+app.listen(port, () => {
+    console.log(`Example app listening on port http://localhost:${port}`)
+  })
