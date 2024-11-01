@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from 'dotenv';
 import { connectToDatabase } from "./connection.js";
 import { CreateID } from "./functions.js";
+import cors from 'cors';
 
 dotenv.config();
 
@@ -10,10 +11,7 @@ const port = parseInt(process.env.PORT) || 3000;
 
 app.use(express.json());
 
-const cors = require('cors');
-app.use(cors({
-    origin: 'https://danielarenasl.github.io/JavaScript' // Cambia esto por la URL de tu frontend
-}));
+app.use(cors());
 
 //Listar productos
 
