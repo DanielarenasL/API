@@ -101,6 +101,27 @@ app.delete('/products/:id', async (req, res) => {
 //Añadir el borrar categorias
 
 
+//Update Products
+app.patch('/products/:id', async (req, res) => {
+    try {
+
+        const db = await connectToDatabase();
+        const productsCollection = db.collection('Productos');
+        const id = Number(req.params.id);
+        const ToUpdate = req.body;
+        const result = await productsCollection.updateOne({"_id": id}, { $set: ToUpdate});
+
+        res.status(201).json( {message: "Producto editado ", data: result});
+
+    }catch (error) {
+        res.status(500).json({ error: 'Error interno del servidor' }); 
+    }
+})
+//
+
+//Añadir editar categorias
+
+
 app.listen(port, () => {
     console.log(`Example app listening on http://localhost:${port}`);
 });
