@@ -20,7 +20,7 @@ app.get('/products', async (req, res) => {
         const db = await connectToDatabase();
         const productsCollection = db.collection('Productos');
         const productos = await productsCollection.find({}).toArray();
-        res.json({ data: productos });
+        res.json(productos);
     } catch (error) {
         res.status(500).json({ error: 'Error interno del servidor' });  
     }
@@ -32,7 +32,7 @@ app.get('/categories', async (req, res) => {
         const db = await connectToDatabase();
         const categoriesCollection = db.collection('Categorias');
         const categorias = await categoriesCollection.find({}).toArray();
-        res.json({ data: categorias});
+        res.json(categorias);
     } catch (error) {
         res.status(500).json({ error: 'Error interno del servidor'});   
     }
