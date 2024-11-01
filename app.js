@@ -43,13 +43,11 @@ app.post('/products', async (req, res) => {
         const nuevoId = await CreateID(productsCollection);
         const nuevoProducto = {
             _id: nuevoId,
-            nombre: req.body.nombre,
-            precio: req.body.precio,
-            talla: req.body.talla,
-            color: req.body.color,
-            tipo: req.body.tipo,
-            descripcion: req.body.descripcion,
-            stock: req.body.stock || 0,
+            title: req.body.title,
+            value: req.body.value,
+            description: req.body.description,
+            category_id: req.body.category_id,
+            images: req.body.images
         };
         const result = await productsCollection.insertOne(nuevoProducto);
 
@@ -67,7 +65,9 @@ app.post('/categories/', async (req, res) => {
         const nuevoId = await CreateID(categoriesCollection);
         const nuevaCategoria = {
             _id: nuevoId,
-            nombre: req.body.nombre
+            name: req.body.name,
+            description: req.body.description,
+            image: req.body.image
         };
         const result = await categoriesCollection.insertOne(nuevaCategoria);
 
