@@ -10,6 +10,11 @@ const port = parseInt(process.env.PORT) || 3000;
 
 app.use(express.json());
 
+const cors = require('cors');
+app.use(cors({
+    origin: 'https://danielarenasl.github.io/JavaScript' // Cambia esto por la URL de tu frontend
+}));
+
 //Listar productos
 
 app.get('/products', async (req, res) => {
