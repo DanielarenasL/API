@@ -89,8 +89,6 @@ app.delete('/products/:id', async (req, res) => {
         if(comprobacion){
             res.status(201).json( {message: "Producto eliminado ", data: result});
             console.log('eliminado');
-        }else{
-            console.log('No se pudo eliminar el producto: ', id);
         }
         
     } catch (error) {
@@ -98,8 +96,24 @@ app.delete('/products/:id', async (req, res) => {
     }
 });
 
-//Añadir el borrar categorias
+//borrar categorias 
+app.delete('/categories/:id', async(req,res) => {
+    try{
+        const db = await connectToDatabase();
+        const categoriesCollection = db.collection('Categorias');
+        const id = Number(req.params.id);
+        const result = await categoriesCollection.deleteOne({"_id": id});
 
+        if (result){
+            res.status(200).json({message: "Categoria eliminada"});
+        } else {
+            res.status(404).json({ error: "Categoría no encontrada" });
+        }
+        
+    } catch (error) {
+        res.status(500).json({ error: 'Error interno del servidor' });
+    }
+});
 
 //Update Products
 app.patch('/products/:id', async (req, res) => {
@@ -117,9 +131,30 @@ app.patch('/products/:id', async (req, res) => {
         res.status(500).json({ error: 'Error interno del servidor' }); 
     }
 })
-//
 
-//Añadir editar categorias
+// Añadir editar categorias
+app.patch('/categories/:id', async(req,res) => {
+    try{
+        const db = await connectToDatabase();
+        const categoriesCollection = db.collection('Categorias');
+        const id = Number(req.params.id);
+        const ToUpdate = req.body;
+
+        const result = await categoriesCollection.updateOne(
+            {"_id":id},
+            { $set: ToUpdate}
+        );
+        
+        if (result){
+            res.status(200).json({message: "Categoria editada"});
+        } else {
+            res.status(404).json({ error: "Categoría no encontrada" });
+        }
+        
+    } catch (error) {
+        res.status(500).json({ error: 'Error interno del servidor' });
+    }
+});
 
 
 app.listen(port, () => {
