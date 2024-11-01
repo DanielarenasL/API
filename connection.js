@@ -5,10 +5,7 @@ import { MongoClient } from 'mongodb';
 dotenv.config();
 const URI = process.env.URI;
 
-const client = new MongoClient(URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-});
+const client = new MongoClient(URI);
 
 let db;
 
