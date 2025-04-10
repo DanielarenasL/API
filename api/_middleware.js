@@ -2,8 +2,8 @@ import Cors from 'cors';
 
 // Inicializa el middleware de CORS
 const cors = Cors({
+  origin: '*', // Permitir todos los orígenes (o especifica uno en particular)
   methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'], // Métodos HTTP permitidos
-  origin: '*' // Permitir solicitudes desde cualquier origen
 });
 
 // Función para usar el middleware
@@ -18,8 +18,15 @@ function runMiddleware(req, res, fn) {
   });
 }
 
-export default async function handler(req, res, next) {
-  // Ejecuta el middleware de CORS antes de manejar la solicitud
+export default async function handler(req, res) {
+  // Ejecuta el middleware de CORS
   await runMiddleware(req, res, cors);
-  next();
+
+  // Maneja solicitudes OPTIONS (preflight)
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
+    return;
+  }
+
+  // Continúa con el siguiente manejador si no es OPTIONS
 }
