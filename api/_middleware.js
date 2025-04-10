@@ -2,7 +2,7 @@ import Cors from 'cors';
 
 // Inicializa el middleware de CORS
 const cors = Cors({
-  origin: '*', // Permitir todos los orígenes (o especifica uno en particular)
+  origin: 'https://danielarenasl.github.io', // Permitir todos los orígenes (o especifica uno en particular)
   methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'], // Métodos HTTP permitidos
 });
 
