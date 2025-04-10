@@ -1,7 +1,7 @@
 import Cors from 'cors';
 
 const cors = Cors({
-  origin: ['*'], // Permite orígenes específicos
+  origin: ['http://127.0.0.1:5501', 'https://danielarenasl.github.io/JavaScript/'], // Permite orígenes específicos
   methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'], // Métodos permitidos
   allowedHeaders: ['Content-Type', 'Authorization'], // Cabeceras personalizadas
 });
@@ -23,7 +23,7 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') {
     res.setHeader('Access-Control-Allow-Origin', req.headers.origin || '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PATCH,DELETE,OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Authorization');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     res.status(200).end();
     return;
   }
