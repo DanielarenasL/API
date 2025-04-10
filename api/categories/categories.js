@@ -1,5 +1,5 @@
-import { connectToDatabase } from "../connection.js";
-import { CreateID } from "../functions.js";
+import { connectToDatabase } from "../../connection.js";
+import { CreateID } from "../../functions.js";
 
 export default async function handler(req, res) {
     const db = await connectToDatabase();
